@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
             //or
             SceneManager.LoadScene(1); //current Game Scene
         }
+
+        //if the escape is pressed
+        //quit application
     }
 
     public void GameOver()

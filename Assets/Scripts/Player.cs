@@ -72,13 +72,13 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
 
- #if UNITY_ANDROID
-        if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
+#if UNITY_ANDROID
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
         {
             FireLaser();
         }
 #elif UNITY_IOS
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time > _canFire)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
         {
             FireLaser();
         }
@@ -93,8 +93,16 @@ public class Player : MonoBehaviour
 
     void CalculateMovement()
     {
-        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal"); //Input.GetAxis("Horizontal");
-        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical"); //Input.GetAxis("Vertical");
+#if UNITY_ANDROID
+        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical");
+#elif UNITY_IOS
+        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical");
+#else
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+#endif
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
