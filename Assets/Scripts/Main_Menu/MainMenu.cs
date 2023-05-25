@@ -10,4 +10,14 @@ public class MainMenu : MonoBehaviour
         //load the game scene
         SceneManager.LoadScene(1); //game scene
     }
+
+    private void Update()
+    {
+        //if the "Escape" is pressed 
+        //quit application
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 }
