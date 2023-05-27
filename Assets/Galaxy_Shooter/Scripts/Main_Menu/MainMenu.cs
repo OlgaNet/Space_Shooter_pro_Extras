@@ -5,10 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void LoadGame()
+    public void LoadSinglePlayerGame()
     {
+        Debug.Log("Single Player game Loading...");
         //load the game scene
+        //SceneManager.LoadScene("Single_Player");
         SceneManager.LoadScene(1); //game scene
+    }
+
+    public void LoadCoOpMode()
+    {
+        Debug.Log("Co-Op Mode Loading...");
+        SceneManager.LoadScene(2);
     }
 
     private void Update()
