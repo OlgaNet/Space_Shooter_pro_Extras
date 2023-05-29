@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
+    public bool isPlayerOne = false;
+    public bool isPlayerTwo = false;
 
     [SerializeField]
     private GameObject _shieldVisualizer;
@@ -78,43 +80,88 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CalculateMovement();
-
+        //if player1
+        if (isPlayerOne == true)
+        {
+            CalculateMovement();
 #if UNITY_ANDROID
-        if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
+        if (((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire) && isPlayerOne == true)
         {
             FireLaser();
         }
 #elif UNITY_IOS
-        if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
+        if (((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire) && isPlayerOne == true)
         {
             FireLaser();
         }
 #else
-        //if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time > _canFire)
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
-        {
-            FireLaser();
-        }
+            //if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time > _canFire)
+            if ((Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire) && isPlayerOne == true)
+            {
+                FireLaser();
+            }
 #endif
+        }
+
+        //if player2
+        if (isPlayerTwo == true)
+        {
+            CalculateMovementPlayerTwo();
+            FireLaserPlayerTwo();
+            /*if ((Input.GetKeyDown(KeyCode.Keypad8) && Time.time > _canFire) && isPlayerTwo == true)
+            {
+                FireLaser();
+            }*/
+        }
+
+        
     }
 
     void CalculateMovement()
     {
 #if UNITY_ANDROID
-        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
-        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical");
+        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal_Player1");
+        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical_Player1");
 #elif UNITY_IOS
-        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
-        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical");
+        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal_Player1");
+        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical_Player1");
 #else
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInputPlayer1 = Input.GetAxis("Horizontal");
+        float verticalInputPlayer1 = Input.GetAxis("Vertical");
 #endif
 
-        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        Vector3 directionPlayer1 = new Vector3(horizontalInputPlayer1, verticalInputPlayer1, 0);
 
-        transform.Translate(direction * _speed * Time.deltaTime);
+        transform.Translate(directionPlayer1 * _speed * Time.deltaTime);
+
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
+
+        if (transform.position.x > 11.3f)
+        {
+            transform.position = new Vector3(-11.3f, transform.position.y, 0);
+        }
+        else if (transform.position.x < -11.3f)
+        {
+            transform.position = new Vector3(11.3f, transform.position.y, 0);
+        }
+    }
+
+    void CalculateMovementPlayerTwo()
+    {
+#if UNITY_ANDROID
+        float horizontalInputPlayer2 = CrossPlatformInputManager.GetAxis("Horizontal_Player2");
+        float verticalInputPlayer2 = CrossPlatformInputManager.GetAxis("Vertical_Player2");
+#elif UNITY_IOS
+        float horizontalInputPlayer2 = CrossPlatformInputManager.GetAxis("Horizontal_Player2");
+        float verticalInputPlayer2 = CrossPlatformInputManager.GetAxis("Vertical_Player2");
+#else
+        float horizontalInputPlayer2 = Input.GetAxis("Horizontal_Player2");
+        float verticalInputPlayer2 = Input.GetAxis("Vertical_Player2");
+#endif
+        
+        Vector3 directionPlayer2 = new Vector3(horizontalInputPlayer2, verticalInputPlayer2, 0);
+
+        transform.Translate(directionPlayer2 * _speed * Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
 
@@ -143,6 +190,23 @@ public class Player : MonoBehaviour
 
         _audioSource.Play(); //play the laser audio clip
         
+    }
+
+    void FireLaserPlayerTwo()
+    {
+        _canFire = Time.time + _fireRate;
+
+        if (_isTripleShotActive == true)
+        {
+            Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+        }
+
+        _audioSource.Play(); //play the laser audio clip
+
     }
 
     public void Damage()
