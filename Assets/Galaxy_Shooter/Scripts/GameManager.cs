@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool _isGameOver;
     private SpawnManadger _spawnManager;
+    [SerializeField]
+    private GameObject player;
+    [SerializeField]
+    private GameObject _coopPlayers;
 
     private void Start()
     {
