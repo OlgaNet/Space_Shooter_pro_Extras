@@ -107,11 +107,10 @@ public class Player : MonoBehaviour
         if (isPlayerTwo == true)
         {
             CalculateMovementPlayerTwo();
-            FireLaserPlayerTwo();
-            /*if ((Input.GetKeyDown(KeyCode.Keypad8) && Time.time > _canFire) && isPlayerTwo == true)
+            if (Input.GetKeyDown(KeyCode.RightControl) && Time.time > _canFire)
             {
                 FireLaser();
-            }*/
+            }
         }
 
         
@@ -190,23 +189,6 @@ public class Player : MonoBehaviour
 
         _audioSource.Play(); //play the laser audio clip
         
-    }
-
-    void FireLaserPlayerTwo()
-    {
-        _canFire = Time.time + _fireRate;
-
-        if (_isTripleShotActive == true)
-        {
-            Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
-        }
-        else
-        {
-            Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
-        }
-
-        _audioSource.Play(); //play the laser audio clip
-
     }
 
     public void Damage()
