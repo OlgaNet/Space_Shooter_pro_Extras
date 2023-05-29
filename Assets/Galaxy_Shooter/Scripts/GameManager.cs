@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isCoopMode = false;
     [SerializeField]
     private bool _isGameOver;
+    private SpawnManadger _spawnManager;
+
+    private void Start()
+    {
+        _spawnManager = GameObject.Find("Spawn_Manadger").GetComponent<SpawnManadger>();
+    }
 
     private void Update()
     {
@@ -16,7 +23,7 @@ public class GameManager : MonoBehaviour
         {
             //SceneManager.LoadScene("Game");
             //or
-            SceneManager.LoadScene(1); //current Game Scene
+            SceneManager.LoadScene(0); //current Game Scene
         }
 
         //if the "Escape" is pressed 

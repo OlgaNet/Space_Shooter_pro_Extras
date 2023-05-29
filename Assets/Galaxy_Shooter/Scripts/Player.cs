@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     private int _score;
 
     private UIManager _uiManager;
+    [SerializeField]
+    private GameManager _gameManager;
 
     [SerializeField]
     private AudioClip _laserSoundClip;
@@ -42,7 +44,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(0, 0, 0);
+        //transform.position = new Vector3(0, 0, 0);
+        //_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _spawnManadger = GameObject.Find("Spawn_Manadger").GetComponent<SpawnManadger>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
@@ -65,6 +68,11 @@ public class Player : MonoBehaviour
         {
             _audioSource.clip = _laserSoundClip;
         }
+
+        if (_gameManager.isCoopMode == false)
+        {
+            transform.position = new Vector3(0, 0, 0);
+        }
     }
 
     // Update is called once per frame
@@ -73,18 +81,18 @@ public class Player : MonoBehaviour
         CalculateMovement();
 
 #if UNITY_ANDROID
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
+        if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
         {
             FireLaser();
         }
 #elif UNITY_IOS
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
+        if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Fire")) && Time.time > _canFire)
         {
             FireLaser();
         }
 #else
         //if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time > _canFire)
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0)) && Time.time > _canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
         }

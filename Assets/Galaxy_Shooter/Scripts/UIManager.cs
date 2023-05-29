@@ -70,4 +70,10 @@ public class UIManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
+
+    public void CloseGame()
+    {
+        Debug.Log("Close Game");
+        Application.Quit();
+    }
 }
