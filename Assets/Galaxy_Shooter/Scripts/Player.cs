@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
     private AudioClip _laserSoundClip;
     private AudioSource _audioSource;
 
+    [SerializeField]
+    private Animator _animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -132,8 +135,8 @@ public class Player : MonoBehaviour
         Vector3 directionPlayer1 = new Vector3(horizontalInputPlayer1, verticalInputPlayer1, 0);
 
         transform.Translate(directionPlayer1 * _speed * Time.deltaTime);
-
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
+        _animator.SetFloat("Direction", horizontalInputPlayer1);
 
         if (transform.position.x > 11.3f)
         {
@@ -161,8 +164,8 @@ public class Player : MonoBehaviour
         Vector3 directionPlayer2 = new Vector3(horizontalInputPlayer2, verticalInputPlayer2, 0);
 
         transform.Translate(directionPlayer2 * _speed * Time.deltaTime);
-
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
+        _animator.SetFloat("Direction", horizontalInputPlayer2);
 
         if (transform.position.x > 11.3f)
         {
