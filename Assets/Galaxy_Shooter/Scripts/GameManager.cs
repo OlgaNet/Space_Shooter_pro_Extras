@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject _coopPlayers;
+    [SerializeField]
+    private GameObject _pauseMenuPanel;
 
     private void Start()
     {
@@ -35,6 +37,13 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+
+        //pause menu
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            _pauseMenuPanel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
