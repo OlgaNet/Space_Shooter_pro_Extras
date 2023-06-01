@@ -516,7 +516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 105.01, y: 40.9092}
+  m_AnchoredPosition: {x: 105.01, y: 18.69951}
   m_SizeDelta: {x: 210.02, y: 49.6876}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1006637868
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 1087889974}
   - component: {fileID: 1087889973}
   m_Layer: 5
-  m_Name: Title
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -701,7 +701,7 @@ GameObject:
   - component: {fileID: 1087989811}
   - component: {fileID: 1087989810}
   m_Layer: 5
-  m_Name: background
+  m_Name: Background_zag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -996,7 +996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -105.01, y: 40.9092}
+  m_AnchoredPosition: {x: -105.01, y: 18.69951}
   m_SizeDelta: {x: 210.02, y: 49.6876}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432755705

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -75,5 +76,18 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Close Game");
         Application.Quit();
+    }
+
+    //ResumePlay 
+    public void ResumePlay()
+    {
+        GameManager gm = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        gm.ResumeGame();
+    } 
+
+    //BackToMainMenu
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
