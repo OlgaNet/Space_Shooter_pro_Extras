@@ -4,12 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class UIManager : MonoBehaviour
 {
     //handle to Text
-    [SerializeField]
-    private Text _scoreText;
+    public Text _scoreText, _bestScoreText;
+
     [SerializeField]
     private Image _LivesImg;
     [SerializeField]
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
     {
         //assign text component to the handle
         _scoreText.text = "Score: " + 0;
+        _bestScoreText.text = "Best: " + PlayerPrefs.GetInt("HightScore", 0);
         _gameOverText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
 
@@ -39,6 +41,12 @@ public class UIManager : MonoBehaviour
     {
         _scoreText.text = "Score: " + playerScore.ToString();
     }
+
+    public void UpdateBestScore(int playerBestScore)
+    {
+        _bestScoreText.text = "Best: " + playerBestScore.ToString();
+    }
+
 
     public void UpdateLives(int currentLives)
     {

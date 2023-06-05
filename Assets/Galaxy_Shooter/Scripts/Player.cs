@@ -32,8 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _leftEngine, _rightEngine;
 
-    [SerializeField]
-    private int _score;
+    public int _score, _bestScore;
 
     private UIManager _uiManager;
     [SerializeField]
@@ -54,6 +53,7 @@ public class Player : MonoBehaviour
         _spawnManadger = GameObject.Find("Spawn_Manadger").GetComponent<SpawnManadger>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
+        _bestScore = PlayerPrefs.GetInt("HightScore", 0);
 
         if (_spawnManadger == null)
         {
@@ -226,6 +226,7 @@ public class Player : MonoBehaviour
         if (_lives < 1)
         {
             _spawnManadger.OnPlayerDeath();
+            CheckForBestScore();
             Destroy(this.gameObject);
         }
     }
@@ -269,4 +270,15 @@ public class Player : MonoBehaviour
     }
     //method to add 10 to the score!
     //communicate with the UI to update the score!
+
+    //CheckForBestScore
+    public void CheckForBestScore()
+    {
+        if (_score > _bestScore)
+        {
+            _bestScore = _score;
+            PlayerPrefs.SetInt("HightScore", _bestScore);
+            _uiManager.UpdateBestScore(_bestScore);
+        }
+    }
 }
