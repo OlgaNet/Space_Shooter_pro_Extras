@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     private Text _restartText;
 
     private GameManager _gameManager;
+    private Player _player;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
         _bestScoreText.text = "Best: " + PlayerPrefs.GetInt("HightScore", 0);
         _gameOverText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _player = GameObject.Find("Player").GetComponent<Player>();
 
         if (_gameManager == null)
         {
@@ -96,6 +98,8 @@ public class UIManager : MonoBehaviour
     //BackToMainMenu
     public void BackToMainMenu()
     {
+        _player.CheckForBestScore();
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 }
